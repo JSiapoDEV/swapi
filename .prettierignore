@@ -1,0 +1,9 @@
+node_modules
+.prettierrc
+build/Release
+.esbuild/
+.serverless/
+temp/
+package-lock.json
+package.json
+deploy.js

@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2021",
+    "types": ["jest", "node"],
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "outDir": "dist/debug",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@functions/*": ["functions/*"],
+      "@helpers/*": ["helpers/*"],
+      "@domain/*": ["domain/*"],
+      "@utils/*": ["utils/*"],
+      "@test/*": ["test/*"]
+    }
+  },
+  "include": ["./"],
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

@@ -48,10 +48,6 @@ const serverlessConfiguration: AWS = {
       DYNAMO_TABLE_FILM: 'FilmTable_qas',
       DYNAMO_TABLE_USER: 'UsuariosTable_qas',
       DYNAMO_TABLE_FILM_CACHE: 'FilmCacheTable_qas',
-      //   JWT_SECRET: '',
-      //   OMDB_API_KEY: '',
-      //   ACCESS_KEY_ID: '',
-      //   SECRET_ACCESS_KEY: '',
       VERSION: packageJson.version,
     },
     iam: {

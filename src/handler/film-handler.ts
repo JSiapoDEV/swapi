@@ -1,5 +1,5 @@
 import { Params } from '@domain/http';
-import { service } from '@src/infraestructure/container';
+import { service } from '@src/infraestructure/container/film-container';
 
 export const getFilms = async (req: Params): Promise<any> => {
   const films = await service.getFilms();

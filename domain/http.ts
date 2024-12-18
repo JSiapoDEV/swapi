@@ -14,6 +14,8 @@ import {
   ValidatorError,
 } from '@utils/error_handling';
 
+import { decode } from '@utils/token';
+
 process.env.TZ = 'America/Lima';
 
 export type httpEvent = {
@@ -54,7 +56,12 @@ export class ParamsBase implements Params {
 
 export type Response = (status: number, body: any) => any;
 
-const ignore = ['POST.login', 'GET.version'].map((e) => e.toLowerCase());
+const ignore = [
+  'POST.user/login',
+  'GET.version',
+  'POST.user/register',
+  'POST.user/refresh',
+].map((e) => e.toLowerCase());
 
 export async function createRouter(
   e: httpEvent,
@@ -97,6 +104,22 @@ export async function createRouter(
       throw new InternalServerError(
         `No se ha encontrado una función para la ruta ${urlKey.replace('.', ':')}`,
       );
+
+    const token =
+      (headers['authorization'] || headers['Authorization'] || '').split(' ')[1] ||
+      '';
+
+    if (!ignore.includes(urlKey.toLowerCase()) && !token) {
+      throw new UnauthorizedError('No autorizado');
+    }
+
+    if (!ignore.includes(urlKey.toLowerCase()) && token) {
+      try {
+        globalThis.user = await decode<{ id: number }>(token);
+      } catch (error) {
+        throw new UnauthorizedError('Token inválido');
+      }
+    }
 
     return await route({
       body,

@@ -1,8 +1,15 @@
-import { FilmModel } from '@src/domain/model/film-model';
 import { api } from '@src/config';
 import { dynamoDb } from '@domain/dynamodb';
 
-export class FilmDynamoDatasource {
+interface FilmCacheDatasource {
+  createFilm(film: FilmModel): Promise<void>;
+  getFilms(): Promise<FilmModel[]>;
+  getFilmById(id: number): Promise<FilmModel>;
+  updateFilm(film: FilmModel): Promise<FilmModel>;
+  deleteFilm(id: number): Promise<void>;
+}
+
+export class FilmDynamoDatasource implements FilmCacheDatasource {
   async createFilm(film: FilmModel): Promise<void> {
     console.log('createFilm', film);
     const params = {

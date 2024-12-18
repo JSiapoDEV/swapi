@@ -6,11 +6,10 @@ import {
   findFilm,
   getFilms,
   updateFilm,
-} from '../../src/handler/index';
+} from '../../src/handler/film-handler';
 
-import { FilmModel } from '../../src/domain/model/film-model';
 import { Params } from '../../domain/http';
-import { service } from '../../src/infraestructure/container';
+import { service } from '../../src/infraestructure/container/film-container';
 
 jest.mock('../../src/infraestructure/container', () => ({
   service: {

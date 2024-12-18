@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import type { AWS } from '@serverless/typescript';
+import { FilmCacheTable } from 'dynamoTables/film-cache.table';
 import FilmModule from 'src/index';
 import { FilmTable } from 'dynamoTables/film.table';
 import { UserTable } from 'dynamoTables/user.table';
@@ -45,11 +46,12 @@ const serverlessConfiguration: AWS = {
       SWAPI_URL: 'https://swapi.py4e.com/api',
       OMDB_URL: 'http://www.omdbapi.com',
       DYNAMO_TABLE_FILM: 'FilmTable_qas',
-      DYNAMO_TABLE_USER: 'UserTable_qas',
+      DYNAMO_TABLE_USER: 'UsuariosTable_qas',
       DYNAMO_TABLE_FILM_CACHE: 'FilmCacheTable_qas',
-      OMDB_API_KEY: '8f8668f1',
-      ACCESS_KEY_ID: 'AKIAYLZZJWII7COIIR7L',
-      SECRET_ACCESS_KEY: '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',
+      JWT_SECRET: '',
+      OMDB_API_KEY: '',
+      ACCESS_KEY_ID: '',
+      SECRET_ACCESS_KEY: '',
       VERSION: packageJson.version,
     },
     iam: {
@@ -92,8 +94,9 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
-      UserTable: UserTable.qas,
+      UsersTable: UserTable.qas,
       FilmTable: FilmTable.qas,
+      FilmCacheTable: FilmCacheTable.qas,
     },
   },
 };

@@ -1,7 +1,5 @@
 type GlobalThis = {
-  process: {
-    versions: {
-      node: string;
-    };
+  user: {
+    id: number;
   };
 };

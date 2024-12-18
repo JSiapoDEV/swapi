@@ -1,24 +1,8 @@
-export class FilmModel {
-  id: number;
-  titulo: string;
-  genero: string;
-  director: string;
-  escritor: string;
-  fecha: string;
-  actores: string;
-  sinopsis: string;
-  idioma: string;
-  pais: string;
-  premios: string;
-  poster: string;
-  estado: boolean; // number 0 or 1
-}
-
 export const generateFilmModel = (
   swapi: FilmSWAPI,
-  omdb: FilmOMdb | undefined,
+  omdb: FilmOMdb | null,
   status: boolean,
-) => {
+): FilmModel => {
   return {
     id: +swapi.url.split('/').slice(-2)[0],
     titulo: swapi.title,

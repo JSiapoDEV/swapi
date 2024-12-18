@@ -48,3 +48,26 @@ type Rating = {
   Source?: string;
   Value?: string;
 };
+
+type FilmModel = {
+  id: number;
+  titulo: string;
+  genero: string;
+  director: string;
+  escritor: string;
+  fecha: string;
+  actores: string;
+  sinopsis: string;
+  idioma: string;
+  pais: string;
+  premios: string;
+  poster: string;
+  estado: boolean; // number 0 or 1
+};
+
+type UserModel = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};

@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { FilmModel } from '@src/domain/model/film-model';
 import { FilmRepository } from '@src/domain/repository/film-repository';
 import { FilmService } from '../../src/application/film-service';
 

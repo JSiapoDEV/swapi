@@ -7,13 +7,13 @@ const createTable = (tableName: string): AWS['resources']['Resources'][''] => ({
     BillingMode: 'PAY_PER_REQUEST',
     AttributeDefinitions: [
       {
-        AttributeName: 'usuario',
+        AttributeName: 'id',
         AttributeType: 'S',
       },
     ],
     KeySchema: [
       {
-        AttributeName: 'usuario',
+        AttributeName: 'id',
         KeyType: 'HASH',
       },
     ],
@@ -21,6 +21,6 @@ const createTable = (tableName: string): AWS['resources']['Resources'][''] => ({
 });
 
 export const UserTable = {
-  qas: createTable('Usuario_qas'),
-  prod: createTable('Usuario_prod'),
+  qas: createTable('UsuariosTable_qas'),
+  prod: createTable('UsuariosTable_prod'),
 };

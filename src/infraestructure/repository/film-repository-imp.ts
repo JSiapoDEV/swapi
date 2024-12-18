@@ -1,43 +1,57 @@
-import { FilmModel, generateFilmModel } from '@src/domain/model/film-model';
-
+import { FilmCacheDynamoDatasource } from '../datasource/film-cache-datasource';
 import { FilmDynamoDatasource } from '../datasource/film-datasource';
 import FilmOMdbService from '@src/infraestructure/service/get-film-omdb-service';
 import { FilmRepository } from '@src/domain/repository/film-repository';
 import FilmSwapiService from '@src/infraestructure/service/get-film-swapi-service';
+import { generateFilmModel } from '@src/domain/model/film-model';
 
 export class FilmRepositoryImp implements FilmRepository {
-  constructor(protected readonly datasource: FilmDynamoDatasource) {}
+  constructor(
+    protected readonly datasource: FilmDynamoDatasource,
+    protected readonly cache: FilmCacheDynamoDatasource,
+  ) {}
 
   async getFilms(): Promise<FilmModel[]> {
+    const currentTime = Math.floor(Date.now() / 1000);
     const dbFilms = await this.datasource.getFilms();
-    console.log('dbFilms', dbFilms);
-    const swapiFilms = (await FilmSwapiService()).results;
+    const cacheFilms = await this.cache.getFilms(currentTime);
 
-    if (!swapiFilms) return dbFilms;
-    const omdbFilms = await Promise.allSettled(
-      swapiFilms.map(async (film) => {
-        return await FilmOMdbService({ title: film.title });
-      }),
-    );
+    if (!cacheFilms) {
+      const swapiFilms = (await FilmSwapiService()).results;
 
-    const filmMatch = [];
+      if (!swapiFilms) return dbFilms;
+      const omdbFilms = await Promise.allSettled(
+        swapiFilms.map(async (film) => {
+          return await FilmOMdbService({ title: film.title });
+        }),
+      );
 
-    swapiFilms.forEach((film, index) => {
-      const swapiFilm = film;
-      const omdbFilm = omdbFilms[index];
-      filmMatch.push({
-        swapi: swapiFilm,
-        omdb: omdbFilm,
+      const filmMatch: {
+        swapi: FilmSWAPI;
+        omdb: PromiseSettledResult<FilmOMdb>;
+      }[] = [];
+
+      swapiFilms.forEach((film, index) => {
+        const swapiFilm = film;
+        const omdbFilm = omdbFilms[index];
+        filmMatch.push({
+          swapi: swapiFilm,
+          omdb: omdbFilm,
+        });
       });
-    });
+      const films = filmMatch.map((film) =>
+        generateFilmModel(
+          film.swapi,
+          film.omdb.status === 'fulfilled' ? film.omdb.value : null,
+          true,
+        ),
+      );
 
-    const filmSuccess = filmMatch.filter((film) => film.omdb.status === 'fulfilled');
+      await this.cache.register(films, currentTime + 1800);
+      return [...films, ...dbFilms];
+    }
 
-    const films = filmSuccess.map((film) =>
-      generateFilmModel(film.swapi, film.omdb.value, true),
-    );
-
-    return [...films, ...dbFilms];
+    return [...cacheFilms, ...dbFilms];
   }
   async createFilm(film: FilmModel): Promise<void> {
     await this.datasource.createFilm(film);

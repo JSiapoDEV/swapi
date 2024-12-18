@@ -7,20 +7,20 @@ const createTable = (tableName: string): AWS['resources']['Resources'][''] => ({
     BillingMode: 'PAY_PER_REQUEST',
     AttributeDefinitions: [
       {
-        AttributeName: 'id',
+        AttributeName: 'expiresIn',
         AttributeType: 'N',
       },
     ],
     KeySchema: [
       {
-        AttributeName: 'id',
+        AttributeName: 'expiresIn',
         KeyType: 'HASH',
       },
     ],
   },
 });
 
-export const FilmTable = {
+export const FilmCacheTable = {
   qas: createTable('FilmCacheTable_qas'),
   prod: createTable('FilmCacheTable_prod'),
 };

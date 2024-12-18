@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 
 import { FilmDynamoDatasource } from '@src/infraestructure/datasource/film-datasource';
-import { FilmModel } from '@src/domain/model/film-model';
 import { dynamoDb } from '@domain/dynamodb';
 
 const filmMocks: FilmModel[] = [

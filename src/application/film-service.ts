@@ -1,4 +1,3 @@
-import { FilmModel } from '@src/domain/model/film-model';
 import { FilmRepository } from '@src/domain/repository/film-repository';
 
 export class FilmService {

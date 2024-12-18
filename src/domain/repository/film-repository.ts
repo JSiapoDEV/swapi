@@ -1,5 +1,3 @@
-import { FilmModel } from '../model/film-model';
-
 export interface FilmRepository {
   getFilms(): Promise<FilmModel[]>;
   createFilm(film: FilmModel): Promise<void>;

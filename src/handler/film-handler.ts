@@ -21,7 +21,13 @@ export const createFilm = async (req: Params): Promise<any> => {
 
 export const findFilm = async (req: Params): Promise<any> => {
   const id = req.query.id;
-  const film = await service.findFilm(id);
+  if (!id) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: 'Id is required' }),
+    };
+  }
+  const film = await service.findFilm(+id);
   return {
     statusCode: 200,
     body: JSON.stringify({ film }),

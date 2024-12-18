@@ -16,6 +16,11 @@ Este proyecto está construido con TypeScript y utiliza el framework Serverless 
 - Testing: Jest
 - Arquitectura: Hexagonal
 
+## Postman Collection
+
+- `DEV.postman_environment`
+- `StarWarsAPI.postman_collection`
+
 ## Instalación
 
 1. Instalar Dependencias

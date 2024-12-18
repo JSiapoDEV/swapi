@@ -50,9 +50,7 @@ const serverlessConfiguration: AWS = {
       DYNAMO_TABLE_FILM_CACHE: 'FilmCacheTable_qas',
       VERSION: packageJson.version,
     },
-    iam: {
-      role: 'arn:aws:iam::575108919825:role/ROLE_FOR_LAMBDA',
-    },
+    iam: {},
     timeout: 30,
     memorySize: 256,
   },

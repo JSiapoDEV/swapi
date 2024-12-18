@@ -45,3 +45,14 @@ export const deleteFilm = async (req: Params): Promise<any> => {
     body: JSON.stringify({ message: 'Film deleted' }),
   };
 };
+
+export const getVersion = async (req: Params): Promise<any> => {
+  const version = process.env.VERSION || 'unknown';
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ version }),
+  };
+};

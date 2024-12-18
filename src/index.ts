@@ -4,7 +4,7 @@ import { AWS } from '@serverless/typescript';
 
 export const api: AWS['functions'][''] = {
   handler: `${handlerPath(__dirname)}/router.router`,
-  events: generateEventsHttpApi('film'),
+  events: generateEventsHttpApi(),
 };
 
 export default { api };

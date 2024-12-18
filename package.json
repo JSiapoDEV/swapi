@@ -1,9 +1,10 @@
 {
   "name": "backend",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Backend de Agritracer Neo",
   "scripts": {
-    "dev": "serverless offline --reloadHandler --aws-profile project --config serverless.ts  --disableScheduledEvents",
+    "start": "serverless offline start --reloadHandler --aws-profile project --config serverless.ts  --disableScheduledEvents --stage dev",
+    "dev": "serverless offline --reloadHandler --aws-profile project --config serverless.ts  --disableScheduledEvents --stage dev",
     "build": "node ./esbuild.config.js",
     "build-esbuild": "esbuild main.ts --bundle --platform=node --target=node16 --outfile=build/js/main.js",
     "clear": "rm -rf .serverless && rm -rf .esbuild",
@@ -15,7 +16,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "deploy": "serverless deploy --aws-profile project --config serverless.ts --verbose"
+    "deploy:dev": "serverless deploy --aws-profile project --config serverless.ts --verbose --state dev",
+    "deploy:prod": "serverless deploy --aws-profile project --config serverless.ts --verbose --state prod",
+    "swagger": "serverless openapi generate -o swagger.yml -f yaml -i 2"
   },
   "lint-staged": {
     "*.{js,ts}": [
@@ -30,6 +33,7 @@
   "author": "Jose Siapo",
   "license": "ISC",
   "dependencies": {
+    "@jimdo/serverless-dotenv": "^1.0.0",
     "aws-embedded-metrics": "^4.1.0",
     "aws-sdk": "^2.1222.0",
     "axios": "^1.4.0",
@@ -55,6 +59,7 @@
     "jest": "^29.7.0",
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
+    "serverless-auto-swagger": "^3.0.0",
     "serverless-esbuild": "^1.32.8",
     "serverless-offline": "^10.2.0",
     "serverless-offline-watcher": "^1.0.0",

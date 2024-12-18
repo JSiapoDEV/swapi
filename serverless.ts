@@ -3,6 +3,8 @@ import 'reflect-metadata';
 import type { AWS } from '@serverless/typescript';
 import FilmModule from 'src/index';
 import { FilmTable } from 'dynamoTables/film.table';
+import { UserTable } from 'dynamoTables/user.table';
+import packageJson from './package.json'; // Importa package.json
 
 (() => {
   const nodeVersion = process.versions.node.split('.')[0];
@@ -19,11 +21,15 @@ import { FilmTable } from 'dynamoTables/film.table';
     process.exit(0);
   }
 })();
-
 const serverlessConfiguration: AWS = {
   service: 'swapi',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-offline'],
+  plugins: [
+    '@jimdo/serverless-dotenv',
+    'serverless-esbuild',
+    'serverless-auto-swagger',
+    'serverless-offline',
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -38,13 +44,16 @@ const serverlessConfiguration: AWS = {
     environment: {
       SWAPI_URL: 'https://swapi.py4e.com/api',
       OMDB_URL: 'http://www.omdbapi.com',
-      OMDB_API_KEY: '',
       DYNAMO_TABLE_FILM: 'FilmTable_qas',
-      ACCESS_KEY_ID: '',
-      SECRET_ACCESS_KEY: '',
+      DYNAMO_TABLE_USER: 'UserTable_qas',
+      DYNAMO_TABLE_FILM_CACHE: 'FilmCacheTable_qas',
+      OMDB_API_KEY: '8f8668f1',
+      ACCESS_KEY_ID: 'AKIAYLZZJWII7COIIR7L',
+      SECRET_ACCESS_KEY: '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',
+      VERSION: packageJson.version,
     },
     iam: {
-      role: '',
+      role: 'arn:aws:iam::575108919825:role/ROLE_FOR_LAMBDA',
     },
     timeout: 30,
     memorySize: 256,
@@ -69,10 +78,21 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
     },
+    autoswagger: {
+      title: 'SWAPI',
+      apiType: 'httpApi',
+      generateSwaggerOnDeploy: true,
+      typefiles: ['@types/api-response.d.ts', '@types/entities.d.ts'],
+      swaggerPath: 'docs',
+      swaggerFiles: [],
+    },
+    dotenv: {
+      path: '.env',
+    },
   },
   resources: {
     Resources: {
-      // UserTable: UserTable.qas,
+      UserTable: UserTable.qas,
       FilmTable: FilmTable.qas,
     },
   },

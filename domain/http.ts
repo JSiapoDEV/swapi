@@ -54,7 +54,7 @@ export class ParamsBase implements Params {
 
 export type Response = (status: number, body: any) => any;
 
-const ignore = ['POST.login', 'GET.test'].map((e) => e.toLowerCase());
+const ignore = ['POST.login', 'GET.version'].map((e) => e.toLowerCase());
 
 export async function createRouter(
   e: httpEvent,

@@ -2,7 +2,7 @@ export const handlerPath = (context: string) => {
   return `${context.split(process.cwd())[1].substring(1).replace(/\\/g, '/')}`;
 };
 
-export const generateEventsHttpApi = (fun: string) => {
+export const generateEventsHttpApi = () => {
   const methods = ['GET', 'POST', 'PUT', 'DELETE'];
   const paths = ['{proceso}', '{proceso}/{metodo}'];
   return methods
@@ -11,7 +11,8 @@ export const generateEventsHttpApi = (fun: string) => {
         return {
           httpApi: {
             method,
-            path: `/api/${fun}/${path}`,
+            path: `/api/${path}`,
+            swaggerTags: [path.split('/')[0]],
           },
         };
       });

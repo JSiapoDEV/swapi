@@ -20,6 +20,11 @@
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "proceso",
@@ -46,6 +51,11 @@
         ],
         "produces": [
           "application/json"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
         ],
         "parameters": [
           {
@@ -74,6 +84,11 @@
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "proceso",
@@ -100,6 +115,11 @@
         ],
         "produces": [
           "application/json"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
         ],
         "parameters": [
           {
@@ -129,6 +149,11 @@
         ],
         "produces": [
           "application/json"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
         ],
         "parameters": [
           {
@@ -163,6 +188,11 @@
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "proceso",
@@ -195,6 +225,11 @@
         ],
         "produces": [
           "application/json"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
         ],
         "parameters": [
           {
@@ -229,6 +264,11 @@
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "proceso",
@@ -252,5 +292,11 @@
     }
   },
   "definitions": {},
-  "securityDefinitions": {}
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
 };

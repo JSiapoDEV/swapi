@@ -21,6 +21,6 @@ const createTable = (tableName: string): AWS['resources']['Resources'][''] => ({
 });
 
 export const FilmCacheTable = {
-  qas: createTable('FilmCacheTable_qas'),
-  prod: createTable('FilmCacheTable_prod'),
+  qas: createTable('SWAPIFilmCacheTable_qas'),
+  prod: createTable('SWAPIFilmCacheTable_prod'),
 };

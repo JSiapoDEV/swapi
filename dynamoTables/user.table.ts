@@ -21,6 +21,6 @@ const createTable = (tableName: string): AWS['resources']['Resources'][''] => ({
 });
 
 export const UserTable = {
-  qas: createTable('UsuariosTable_qas'),
-  prod: createTable('UsuariosTable_prod'),
+  qas: createTable('SWAPIUsuariosTable_qas'),
+  prod: createTable('SWAPIUsuariosTable_prod'),
 };
